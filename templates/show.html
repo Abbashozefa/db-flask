@@ -8,8 +8,8 @@
 </head>  
 <body>
     
-    <form id = "your_form" onsubmit="yourFunction()" action="/edit">
-        <input type="text" name="id" >
+    <form id = "your_form" onsubmit="yourFunction()" action="/show" method="POST">
+        <input type="text" name="fullname" >
         <input type="submit" value="Search">
      </form>   
         
@@ -27,10 +27,10 @@
     <tbody>  
 {% for employee in employees %}  
     <tr>  
-        <td>{{ employee.name}}</td>  
-        <td>{{ employee.email }}</td>  
-        <td>{{ employee.contact }}</td>  
-        <td>{{ employee.message }}</td>  
+        <td>{{ employee[0]}}</td>  
+        <td>{{ employee[1] }}</td>  
+        <td>{{ employee[2] }}</td>  
+        <td>{{ employee[3] }}</td>  
         <td>  
             <a href="/edit/{{ employee.id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>  
             <a href="/delete/{{ employee.id }}">Delete</a>  
