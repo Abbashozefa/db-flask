@@ -14,6 +14,23 @@ mysql=MySQL(app)
 def first():
     return render_template('index.html')
 
+@app.route('/r')
+def second():
+    return render_template('show.html')
+
+@app.route('/edit',methods=['GET','POST'])
+def read():
+    
+    if request.method == 'POST':
+        cursor=mysql.connection.cursor()
+        name=str(request.form['id'])
+        
+        cursor.execute('''select * from report where name=%s''',name)
+        data=cursor.fetchone(name=name)
+        mysql.connection.commit()
+        cursor.close()
+        return render_template('show.html',employees=data)
+    
 
 @app.route('/done',methods=['GET','POST'])
 def home():
