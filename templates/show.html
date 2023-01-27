@@ -32,8 +32,8 @@
         <td>{{ employee[2] }}</td>  
         <td>{{ employee[3] }}</td>  
         <td>  
-            <a href="/edit/{{ employee.id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>  
-            <a href="/delete/{{ employee.id }}">Delete</a>  
+            <a href="/edit/{{ employee[0] }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>  
+            <a name href="/delete/{{ employee[0] }}">Delete</a>  
         </td>  
     </tr>  
 {% endfor %}  
@@ -41,21 +41,8 @@
 </table>  
 <br>  
 <br>  
-<center><a href="/emp" class="btn btn-primary">Add New Record</a></center>  
+<center><a href="/" class="btn btn-primary">Add New Record</a></center>  
 </body>
-<script>
-function yourFunction(){
 
-
-
-
-var action_src = "edit/" + document.getElementsByName("id")[0].value;
-    ;
-    your_form.action = action_src ;
-
-
-
-your_form.action = urlLink;}
-</script>
 
 </html>

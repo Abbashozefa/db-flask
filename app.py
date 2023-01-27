@@ -1,11 +1,11 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,redirect
 from flask_mysqldb import MySQL
 
 app=Flask(__name__)
 
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='abbas'
-app.config['MYSQL_PASSWORD']='AB11**as'
+app.config['MYSQL_PASSWORD']=''
 app.config['MYSQL_DB']='flaskapp'
 
 mysql=MySQL(app)
@@ -42,6 +42,16 @@ def read():
     mysql.connection.commit()
     cursor.close()
     return render_template('show.html',employees=data)
+
+@app.route('/delete/<string:name>')
+def delete(name):
+    fullname=str(name)
+    print(fullname)
+    cursor=mysql.connection.cursor()
+    cursor.execute('''delete from report where name=%s''',[fullname])
+    mysql.connection.commit()
+    cursor.close()
+    return redirect('/edit')
     
 
 @app.route('/done',methods=['GET','POST'])
