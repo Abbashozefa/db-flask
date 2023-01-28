@@ -1,18 +1,22 @@
 from flask import Flask,render_template,request,redirect
 from flask_mysqldb import MySQL
+from dotenv import load_dotenv
+import os
+load_dotenv()
+MYSQL_PASSWORD=os.getenv('MYSQL_PASSWORD')
 
 app=Flask(__name__)
 
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='abbas'
-app.config['MYSQL_PASSWORD']=''
+app.config['MYSQL_PASSWORD']=MYSQL_PASSWORD
 app.config['MYSQL_DB']='flaskapp'
 
 mysql=MySQL(app)
 
-@app.route('/')
-def first():
-    return render_template('index.html')
+
+# def first():
+#     return render_template('index.html')
 
 @app.route('/show',methods=['POST'])
 def second():
@@ -53,7 +57,7 @@ def delete(name):
     cursor.close()
     return redirect('/edit')
     
-
+@app.route('/')
 @app.route('/done',methods=['GET','POST'])
 def home():
     if request.method == 'POST':
@@ -65,6 +69,8 @@ def home():
         cursor.execute('''insert into report values(%s,%s,%s,%s)''',(name,email,contact,message))
         mysql.connection.commit()
         cursor.close()
+        return render_template('index.html')
+    else:
         return render_template('index.html')
     
 
